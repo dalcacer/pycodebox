@@ -6,7 +6,7 @@ A circumstance I would love to overcome, when confronted e.g. with linux.
 Besides some nice devs tend to share or backup their collections via [github](https://github.com/search?q=codebox&). In future it might be nice to tap those repositories, too.
 
 
-* **status:** under development & not ready for use, yet & **first idea.**
+* **status:** from time to time under development & not ready for use, yet & **first idea/quickhack.**
 * **license:** not defined, yet.
 
 ## usage
@@ -17,6 +17,7 @@ Besides some nice devs tend to share or backup their collections via [github](ht
 * `./pybc virtualbox ubuntu`            # show all snippets that contain "virtualbox" OR "ubuntu" in their tag, title, listname
 
 ### future
+
 * `./pybc`
 * `./pybc KEYWORD KEYWORD`
 * `./pybc add shorthand /path/to/cbxml`
@@ -24,7 +25,7 @@ Besides some nice devs tend to share or backup their collections via [github](ht
 * `./pybc rm shorthand`                 # delete a collection
 * `./pybc list`                         # list all connected collections (local and remote)
 * `./pybc show`                         # 
-* `./pybc help`                    
+* `./pybc help`
 * `./pybc update`                       # update all connected collections (local and remote)
 
 ## todo
@@ -33,18 +34,18 @@ Besides some nice devs tend to share or backup their collections via [github](ht
 
 ## example
 
-    (env)dalcacer@83adedbf ~/repositories/github/dalcacer/pycodebox/pycodebox (master●)$ ./pycb.py ubuntu virtualbox
-    1 local/mine : ubuntu install django        
-    2 local/mine : vbox resume   virtualbox     
-    3 local/mine : vbox list running     virtualbox     
-    4 local/mine : vbox list vms     virtualbox     
+    (env)dalcacer@83adedbf ~/github/dalcacer.pycodebox/pycodebox (master●)$ ./pycb.py ubuntu virtualbox
+    1 local/mine : ubuntu install django
+    2 local/mine : vbox resume   virtualbox
+    3 local/mine : vbox list running     virtualbox
+    4 local/mine : vbox list vms     virtualbox
     5 local/mine : filetype mapping      filetype mapping    ubuntu
     6 local/mine : user no login         ubuntu
     Show No: 3
-    3 local/mine : vbox list running     virtualbox     
+    3 local/mine : vbox list running     virtualbox
     vboxmanage list runningvms
-    
-    To clipboard? (Y/N) 
+
+    To clipboard? (Y/N)
 
 ## for devs
 Nothing to do, yet.
@@ -53,3 +54,8 @@ Nothing to do, yet.
 * `virtualenv env`
 * `source env/bin/activate`
 * `pip install -r requirements.txt`
+
+
+# license
+
+Not, yet.

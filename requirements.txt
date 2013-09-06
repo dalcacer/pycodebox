@@ -1,4 +1,6 @@
 Pygments==1.6
 elementtree==1.2.7-20070827-preview
 termcolor==1.1.0
+pyCLI==2.0.3
 wsgiref==0.1.2
+docopt

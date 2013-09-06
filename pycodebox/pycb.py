@@ -1,9 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""PyCodeBox.
 
-"""
+Usage:
+  pybc.py search (<keyword>...) [ (-t | --title) | (-g |--tags) | (-l | --language) | (-a | --asset)]
+  pybc.py add <shortcut> <path>
+  pybc.py remove <shortcut>
+  pybc.py list 
+  pybc.py (-h | --help)
+  pybc.py --version
 
-
+Options:
+  -h --help         Show this screen.
+  --version         Show version.
+  -t --title        Search titles only.
+  -g --tag          Search tags only.
+  -a --asset        Search assets only.
+  -l --language     Search languages only.
+  -e --exclusive    Exclusive keywords.
 """
 
 
@@ -13,34 +27,19 @@ __credits__ = [""]
 __license__ = ""
 __version__ = "0.1"
 __maintainer__ = "dalcacer"
-__email__ = "github@alcacer.de"
+__email__ = "dev@alcacer.de"
 __status__ = ""
 
-import sys, getopt, platform, os.path
 
+import sys, getopt, platform, os.path
 from termcolor import colored
 from pyperclip import pyperclip
-from optparse import OptionParser
+from docopt import docopt
 from snippetcollection import SnippetCollection
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import TerminalFormatter
 
-
-#pyperclip.copy('The text to be copied to the clipboard.')
-#spam = pyperclip.paste()
-
-
-
-#print colored("test", 'green', attrs=['bold'])
-#print colored(u"\u2717", 'red')
-
-class Confiuration():
-
-    def __init__(self):
-        """
-        """
-        pass
 
 class PyCB():
 
@@ -62,6 +61,7 @@ class PyCB():
         print self._usershome
         appdata = self._usershome + ".pycb"
         # load config
+        print appdata
         self.loadConfiguration(appdata)
 
 
@@ -73,12 +73,13 @@ class PyCB():
         #snippetcollection2.parse()
         #self._collections.append(snippetcollection2)
       
-        
+    
     def loadConfiguration(self, filename):
         """
         """
         print "loading", filename
         pass
+
 
     def find(self, keywords):
         """
@@ -167,6 +168,9 @@ class PyCB():
         """
         self._printResultShort(no,shorthand,title,tags,lists)
         print "\t\t", highlight(assets, PythonLexer(), TerminalFormatter())
+        print no, shorthand, ":", title, "\t", tags, "\t", lists
+        print "\t\t",assets
+
 
     def _printResultShort(self, no, shorthand, title, tags, lists):
         """
@@ -186,25 +190,44 @@ class PyCB():
             prno = str(no)
 
         print prno, uniquetitele, "/", listsstring, "/", tagsstring
+        print no, shorthand, ":", title, "\t", tags, "\t", lists
 
-def main(argv):
+def main(arguments):
     """
     """
     try:
         pycb = PyCB()
-        res = pycb.find(argv)
-        pycb.printResults(res, False)
-        no = raw_input("Show No: ")
-        pycb.printResult(res, no)
-        var = raw_input("To clipboard? (Y/N) ")
-        if var is "Y" or var is "y":
-            asset = pycb.getAsset(res,no)
-            pyperclip.copy(asset)
-        else:
-            exit(1)
+
+        print (arguments)
+    
+        if arguments.get('add') is True:
+            print "add remote"
+        elif arguments.get('list') is None:
+            print "list remote"    
+        elif arguments.get('remove') is True:
+            print "remove remote"    
+        elif arguments.get('search') is True:
+            print "search"
+            keywords = arguments.get('<keyword>')
+            print keywords
+            res = pycb.find(keywords)
+            pycb.printResults(res, False)
+            no = raw_input("Show No: ")
+            pycb.printResult(res, no)
+            var = raw_input("To clipboard? (Y/N) ")
+            if var is "Y" or var is "y":
+                asset = pycb.getAsset(res,no)
+                pyperclip.copy(asset)
+            else:
+                exit(1)
     except KeyboardInterrupt:
-        print "Do not cry because it is over, smile because it happened."
+        print
+        print 
+        print "Goodbye! And 'do not cry because it is over, smile because it happened.'"
+
+    
 
     
 if __name__ == '__main__':
-        main(sys.argv[1:])
+    arguments = docopt(__doc__, version='Py CodeBox 0.1')
+    main(arguments)

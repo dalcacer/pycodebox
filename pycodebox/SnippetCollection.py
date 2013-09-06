@@ -12,7 +12,7 @@ __credits__ = [""]
 __license__ = ""
 __version__ = "0.1"
 __maintainer__ = "dalcacer"
-__email__ = "dev@alcacer.de"
+__email__ = "github@alcacer.de"
 __status__ = ""
 
 import elementtree.ElementTree as ET
