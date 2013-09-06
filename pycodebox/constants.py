@@ -1,0 +1,10 @@
+
+
+ATTRIB_CHILDTYPE = 'type'
+CHILDTYPE_ASSET = 'asset'
+CHILDTYPE_SNIPPET = 'snippet'
+CHILDTYPE_TAG = 'tag'
+CHILDTYPE_LIST = 'list'
+CHILDTYPE_FOLDER = 'folder'
+CHILDTYPE_SEARCH = 'search'
+CHILDTYPE_NONE = 'none'

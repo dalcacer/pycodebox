@@ -5,7 +5,6 @@
 
 """
 
-
 __author__ = "dalcacer"
 __copyright__ = "Copyright 2013"
 __credits__ = [""]
@@ -17,7 +16,7 @@ __status__ = ""
 
 import elementtree.ElementTree as ET
 import base64
-
+import constants as const
 class SnippetCollection():
 
     """
@@ -40,29 +39,101 @@ class SnippetCollection():
         """
         parses the associated cbxml-file.
         """
+        #tree = ET.parse(self._file)
+        #root = tree.getroot()
+
+        #first things first
+        self.__parseForFolders()
+        self.__parseForLists()
+        self.__parseForTags()
+        self.__parseForAssets()
+        self.__parseForSnippets()
+        # for child in root._children:
+        #     childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
+        #     childType = str(childType).strip().lower()
+        #     if childType == const.CHILDTYPE_ASSET:
+        #         self._parseAsset(child)
+        #     elif childType == const.CHILDTYPE_SNIPPET:
+        #         pass
+        #     elif childType == const.CHILDTYPE_TAG:
+        #         self._parseTag(child)
+        #     elif childType == const.CHILDTYPE_LIST:
+        #         self._parseList(child)
+        #     elif childType == const.CHILDTYPE_FOLDER:
+        #         self._parseFolder(child)
+        #     elif childType == const.CHILDTYPE_SEARCH:
+        #         pass
+        #     elif childType == const.CHILDTYPE_NONE:
+        #         pass
+        #     else:
+        #         print "Oh. A new type: ", childType
+        
+
+    def __parseForAssets(self):
+        """
+        parses the associated cbxml-file.
+        """
         tree = ET.parse(self._file)
         root = tree.getroot()
 
         for child in root._children:
-            childType = child.attrib.get('type')
+            childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
             childType = str(childType).strip().lower()
-            if childType == "asset":
+            if childType == const.CHILDTYPE_ASSET:
                 self._parseAsset(child)
-            elif childType == "snippet":
-                self._parseSnippet(child)
-            elif childType == "tag":
-                self._parseTag(child)
-            elif childType == "list":
-                self._parseList(child)
-            elif childType == "folder":
-                self._parseFolder(child)
-            elif childType == "search":
-                pass
-            elif childType == "none":
-                pass
-            else:
-                print "Oh. A new type: ", childType
 
+    def __parseForTags(self):
+        """
+        parses the associated cbxml-file.
+        """
+        tree = ET.parse(self._file)
+        root = tree.getroot()
+
+        for child in root._children:
+            childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
+            childType = str(childType).strip().lower()
+            if childType == const.CHILDTYPE_TAG:
+                self._parseTag(child)
+
+    def __parseForFolders(self):
+        """
+        parses the associated cbxml-file.
+        """
+        tree = ET.parse(self._file)
+        root = tree.getroot()
+
+        for child in root._children:
+            childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
+            childType = str(childType).strip().lower()
+            if childType == const.CHILDTYPE_FOLDER:
+                self._parseFolder(child)
+
+    def __parseForLists(self):
+        """
+        parses the associated cbxml-file.
+        """
+        tree = ET.parse(self._file)
+        root = tree.getroot()
+
+        for child in root._children:
+            childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
+            childType = str(childType).strip().lower()
+            if childType == const.CHILDTYPE_LIST:
+                self._parseList(child)
+    
+    def __parseForSnippets(self):
+        """
+        parses the associated cbxml-file.
+        """
+        tree = ET.parse(self._file)
+        root = tree.getroot()
+
+        for child in root._children:
+            childType = child.attrib.get(const.ATTRIB_CHILDTYPE)
+            childType = str(childType).strip().lower()
+            if childType == const.CHILDTYPE_SNIPPET:
+                self._parseSnippet(child)
+     
     def update(self):
         """
         updates this collection.
@@ -74,7 +145,7 @@ class SnippetCollection():
 
     def find(self, keywords):
         """
-        finds snippets based on TAG,TITLE,LIST
+        finds snippets based on TAG,TITLE,LIST, ASSET itself.
         """
         resultset = list()
         for snippet in self._snippetobjects:
@@ -82,7 +153,7 @@ class SnippetCollection():
             for  k, v in snippet:
                 if k is "id":
                     snippid=v
-                if k is "title" or k is "tags" or k is "lists":
+                if k is "title" or k is "tags" or k is "lists" or k is "assets":
                     if keywords == list():
                         if self._containsSnippet(resultset,snippid) == True:
                             pass
@@ -247,7 +318,7 @@ class SnippetCollection():
                     lists = ""
                     for ref in refs:
                         resolvedlist = self._findListById(ref)
-                        if not resolvedlist is "":
+                        if not resolvedlist is "" and type(resolvedlist) is str:
                             lists += " " + resolvedlist
                     ansnippet.append(("lists", lists))
                 elif attributeType == 'assets':
@@ -257,7 +328,7 @@ class SnippetCollection():
                     assets = ""
                     for ref in refs:
                         resolvedasset = self._findAssetById(ref)
-                        if not resolvedasset is "":
+                        if not resolvedasset is "" and type(resolvedasset) is str:
                             assets += " " + resolvedasset
                     ansnippet.append(("assets", assets))
                 elif attributeType == 'tags':
@@ -267,7 +338,7 @@ class SnippetCollection():
                     tags = ""
                     for ref in refs:
                         resolvedtag = self._findTagById(ref)
-                        if not resolvedtag is "":
+                        if not resolvedtag is "" and type(resolvedtag) is str:
                             tags += " " + resolvedtag
                     ansnippet.append(("tags", tags))
         self._snippetobjects.append(ansnippet)
