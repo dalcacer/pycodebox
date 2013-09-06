@@ -1,0 +1,3 @@
+[submodule "pycodebox/pyperclip"]
+	path = pycodebox/pyperclip
+	url = https://github.com/gfxmonk/pyperclip
