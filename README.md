@@ -34,7 +34,7 @@ Besides some nice devs tend to share or backup their collections via [github](ht
 
 ## example
 
-    (env)dalcacer@83adedbf ~/github/dalcacer.pycodebox/pycodebox (master●)$ ./pycb.py ubuntu virtualbox
+    ./pycb.py search ubuntu
     1 local/mine : ubuntu install django
     2 local/mine : vbox resume   virtualbox
     3 local/mine : vbox list running     virtualbox
