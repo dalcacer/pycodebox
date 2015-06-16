@@ -7,7 +7,6 @@ Besides some nice devs tend to share or backup their collections via [github](ht
 
 
 * **status:** from time to time under development & not ready for use, yet & **first idea/quickhack.**
-* **license:** not defined, yet.
 
 ## usage
 
@@ -58,4 +57,4 @@ Nothing to do, yet.
 
 # license
 
-Not, yet.
+[Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
